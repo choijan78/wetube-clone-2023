@@ -7,7 +7,7 @@
     "url": "git+https://github.com/choijan78/wetube-clone-2023.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "author": "Jieun Choi<choijan78@gmail.com>",
   "license": "MIT",
