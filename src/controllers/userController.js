@@ -61,18 +61,35 @@ export const postLogin = async (req, res) => {
 };
 
 export const startGithubLogin = (req, res) => {
-  const baseUrl = `http://github.com/login/oauth/authorize?`;
+  const baseUrl = `http://github.com/login/oauth/authorize`;
   const config = {
-    client_Id: "9bbfc4187ba731ebd7c5",
+    client_id: process.env.GH_CLIENT,
     allow_signup: false,
     scope: "read:user user:email",
   };
-  const params = new URLSearchParams(config);
-  const finalUrl = `${baseUrl}${params}`;
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
   return res.redirect(finalUrl);
 };
 
-export const finishGithubLogin = (req, res) => {};
+export const finishGithubLogin = async (req, res) => {
+  const baseUrl = "http://github.com/login/oauth/access_token";
+  const config = {
+    client_id: process.env.GH_CLIENT,
+    client_secret: process.env.GH_SECRET,
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  const data = await fetch(finalUrl, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+    },
+  });
+  const json = await data.json();
+  console.log(json);
+};
 
 export const edit = (req, res) => res.send("Edit User");
 export const remove = (req, res) => res.send("Remove User");
