@@ -27,14 +27,13 @@ export const postJoin = async (req, res) => {
       password,
       location,
     });
+    return res.redirect("/login");
   } catch (error) {
     return res.status(400).render("join", {
       pageTitle: "Upload Video",
       errorMessage: error._message,
     });
   }
-
-  return res.redirect("/login");
 };
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Login" });
@@ -62,7 +61,7 @@ export const postLogin = async (req, res) => {
 };
 
 export const startGithubLogin = (req, res) => {
-  const baseUrl = `http://github.com/login/oauth/authorize`;
+  const baseUrl = "http://github.com/login/oauth/authorize";
   const config = {
     client_id: process.env.GH_CLIENT,
     allow_signup: false,
@@ -100,7 +99,6 @@ export const finishGithubLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log(userData);
     const emailData = await (
       await fetch(`${apiUrl}/user/emails`, {
         headers: {
@@ -126,7 +124,8 @@ export const finishGithubLogin = async (req, res) => {
         location: userData.location,
       });
     }
-    (req.session.loggedIn = true), (req.session.user = user);
+    req.session.loggedIn = true;
+    req.session.user = user;
     return res.redirect("/");
   } else {
     return res.redirection("/login");
@@ -147,12 +146,17 @@ export const postEdit = async (req, res) => {
     },
     body: { name, email, username, location },
   } = req;
-  await User.findByIdAndUpdate(_id, {
-    name,
-    email,
-    username,
-    location,
-  });
-  return res.render("edit-profile");
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+  return res.redirect("/users/edit");
 };
 export const see = (req, res) => res.send("See User");
