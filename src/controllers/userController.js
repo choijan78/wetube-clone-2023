@@ -147,8 +147,9 @@ export const postEdit = async (req, res) => {
     body: { name, email, username, location },
     file,
   } = req;
-  console.log(file);
-  console.log(req.session.user);
+  console.log(`file : ${file.path}`);
+  console.log(`req.session.user : ${req.session.user}`);
+  console.log(`avatarUrl : ${avatarUrl}`);
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
