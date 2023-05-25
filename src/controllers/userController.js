@@ -147,9 +147,7 @@ export const postEdit = async (req, res) => {
     body: { name, email, username, location },
     file,
   } = req;
-  console.log(`file : ${file.path}`);
-  console.log(`req.session.user : ${req.session.user}`);
-  console.log(`avatarUrl : ${avatarUrl}`);
+
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
@@ -171,13 +169,14 @@ export const getChangePassword = (req, res) => {
   }
   return res.render("users/change-password", { pageTitle: "Change Password" });
 };
-export const pastChangePassword = async (req, res) => {
+export const postChangePassword = async (req, res) => {
   const {
     session: {
       user: { _id, password },
     },
     body: { oldPassword, newPassword, newPasswordConfirmation },
   } = req;
+  const user = await User.findById(_id);
   const ok = await bcrypt.compare(oldPassword, password);
   if (!ok) {
     return res.status(400).render("users/change-password", {
@@ -191,7 +190,6 @@ export const pastChangePassword = async (req, res) => {
       errorMessage: "The password does not match the confirmation.",
     });
   }
-  const user = await User.findByID(_id);
   user.password = newPassword;
   await user.save();
   req.session.user.password = user.password;
@@ -199,4 +197,14 @@ export const pastChangePassword = async (req, res) => {
   return res.redirect("/user/logout");
 };
 
-export const see = (req, res) => res.send("See User");
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found" });
+  }
+  return res.render("users/profile", {
+    pageTitle: user.name,
+    user,
+  });
+};
