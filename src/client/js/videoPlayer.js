@@ -4,6 +4,8 @@ const muteBtn = document.getElementById("mute");
 const time = document.getElementById("time");
 const volumeRange = document.getElementById("volume");
 
+console.log("Look at this!! console.log work!");
+
 let volumeValue = 0.5;
 video.volume = volumeValue;
 
@@ -41,6 +43,6 @@ const handleVolumeChange = (event) => {
   video.volumn = value;
 };
 
-playBtn.addEventListener("Click", handlePlayClick);
-muteBtn.addEventListener("Click", handleMute);
+playBtn.addEventListener("click", handlePlayClick);
+muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
