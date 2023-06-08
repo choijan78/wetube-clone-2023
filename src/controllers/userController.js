@@ -2,6 +2,7 @@ import User from "../models/User";
 import Video from "../models/Video";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
+import { async } from "regenerator-runtime";
 
 export const getjoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
@@ -134,8 +135,8 @@ export const finishGithubLogin = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  req.session.destroy();
   req.flash("info", "Bye Bye");
+  req.session.destroy();
   return res.redirect("/");
 };
 export const getEdit = (req, res) => {
