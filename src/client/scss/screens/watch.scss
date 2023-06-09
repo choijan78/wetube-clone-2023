@@ -1,0 +1,35 @@
+#videoContainer {
+  .videoinfo {
+    color: black;
+    margin: 15px 0px;
+    h2 {
+      font-size: 27px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    a {
+      font-size: 23px;
+    }
+  }
+
+  .videoUploader {
+    margin: 10px 0px;
+  }
+
+  .videouploadinfo {
+    background-color: #cbc3e3;
+    padding: 10px;
+    border-radius: 15px;
+    span {
+      margin-right: 5px;
+      font-weight: 600;
+    }
+    p {
+      margin-top: 10px;
+    }
+  }
+
+  .videosetting {
+    color: black;
+  }
+}

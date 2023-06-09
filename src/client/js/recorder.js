@@ -54,7 +54,7 @@ const handleDownload = async () => {
   const thumbUrl = URL.createObjectURL(thumbBlob);
 
   downloadFile(mp4Url, "MyRecording.mp4");
-  downloadFile(thumbUrl, "Myfiles.thumb");
+  downloadFile(thumbUrl, "Myfiles.jpg");
 
   ffmpeg.FS("unlink", files.input);
   ffmpeg.FS("unlink", files.output);
