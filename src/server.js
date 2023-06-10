@@ -7,7 +7,7 @@ import rootRouter from "./routers/rootRouter";
 import videoRouter from "./routers/videoRouter";
 import userRouter from "./routers/userRouter";
 import apiRouter from "./routers/apiRouter";
-import { localsMiddleware } from "./middlewares";
+import { localsMiddleware, sharedArrayBuffer } from "./middlewares";
 
 const app = express();
 const logger = morgan("dev");
@@ -26,6 +26,7 @@ app.use(
   })
 );
 app.use(flash());
+app.use(sharedArrayBuffer);
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
