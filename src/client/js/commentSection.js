@@ -3,18 +3,20 @@ const form = document.getElementById("commentForm");
 const removeComment = document.getElementById("remove_comment");
 const videoComments = document.querySelector(".video__comments ul");
 
-const addComment = (text) => {
+const addComment = (text, id) => {
+  const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
+  newComment.dataset.id = id;
   newComment.className = "video__comment";
   const icon = document.createElement("i");
   icon.className = "fas fa-comment";
   const span = document.createElement("span");
   span.innerText = ` ${text}`;
-  const a = document.createElement("a");
-  a.innerText = "❌";
+  const span2 = document.createElement("span");
+  span2.innerText = "❌";
   newComment.appendChild(icon);
   newComment.appendChild(span);
-  newComment.appendChild(a);
+  newComment.appendChild(span2);
   videoComments.prepend(newComment);
 };
 
@@ -42,11 +44,12 @@ const handleSubmit = async (event) => {
 const handleRemoveComment = (event) => {
   console.log("Let's remove comment");
   const some = event.target.parentElement;
+  const videoId = videoContainer.dataset.id;
   const comment_id = some.getAttribute(`data-id`);
   console.log(some);
   console.log(comment_id);
   videoComments.removeChild(some);
-  fetch(`/api/videos/${comment_id}/comment`, {
+  fetch(`/api/videos/${videoId}/${comment_id}/delete`, {
     method: "POST",
     body: {
       comment_id: "comment_id",

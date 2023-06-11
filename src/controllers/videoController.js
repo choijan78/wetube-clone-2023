@@ -159,28 +159,16 @@ export const createComment = async (req, res) => {
   return res.sendStatus(201);
 };
 
-export const deleteComment = (req, res) => {
+export const deleteComment = async (req, res) => {
   const { id } = req.params;
   console.log(id);
-  const { comment_id } = req.body;
-  console.log(comment_id);
-
+  const {
+    user: { _id },
+  } = req.session;
+  const comment = await Comment.findById(id);
+  if (!comment) {
+    return res.status(404).render("404", { pageTitle: "Comment not found." });
+  }
+  await Comment.findByIdAndDelete(id);
   return res.redirect("/");
 };
-
-// export const deleteVideo = async (req, res) => {
-//   const { id } = req.params;
-//   const {
-//     user: { _id },
-//   } = req.session;
-//   const video = await Video.findById(id);
-//   if (!video) {
-//     return res.status(404).render("404", { pageTitle: "Video not found." });
-//   }
-//   if (String(video.owner) !== String(_id)) {
-//     return res.status(403).redirect("/");
-//   }
-//   await Video.findByIdAndDelete(id);
-
-//   return res.redirect("/");
-// };
