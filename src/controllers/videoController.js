@@ -1,6 +1,7 @@
 import Video from "../models/Video";
 import Comment from "../models/Comment";
 import User from "../models/User";
+import { async } from "regenerator-runtime";
 
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" });
@@ -157,3 +158,27 @@ export const createComment = async (req, res) => {
   video.save();
   return res.sendStatus(201);
 };
+
+export const deleteComment = (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+
+  return res.redirect("/");
+};
+
+// export const deleteVideo = async (req, res) => {
+//   const { id } = req.params;
+//   const {
+//     user: { _id },
+//   } = req.session;
+//   const video = await Video.findById(id);
+//   if (!video) {
+//     return res.status(404).render("404", { pageTitle: "Video not found." });
+//   }
+//   if (String(video.owner) !== String(_id)) {
+//     return res.status(403).redirect("/");
+//   }
+//   await Video.findByIdAndDelete(id);
+
+//   return res.redirect("/");
+// };

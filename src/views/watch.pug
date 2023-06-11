@@ -32,7 +32,7 @@ block content
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm
-                textarea(cols="30", rows="10", placeholder="Write a nice commment...")
+                textarea(cols="100", rows="4", placeholder="Write a nice commment...")
                 button Add Comment
     div.video__comments
         ul
@@ -40,7 +40,7 @@ block content
                 li.video__comment(data-id=comment.id)
                     i.fas.fa-comment
                     span  #{comment.text}
-                    span ❌
+                    a(href=`#`)#remove_comment ❌
 block scripts
     script(src="/static/js/videoPlayer.js")
     if loggedIn

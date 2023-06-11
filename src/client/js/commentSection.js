@@ -1,16 +1,20 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
+const removeComment = document.getElementById("remove_comment");
+const videoComments = document.querySelector(".video__comments ul");
 
 const addComment = (text) => {
-  const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.className = "video__comment";
   const icon = document.createElement("i");
   icon.className = "fas fa-comment";
   const span = document.createElement("span");
   span.innerText = ` ${text}`;
+  const a = document.createElement("a");
+  a.innerText = "❌";
   newComment.appendChild(icon);
   newComment.appendChild(span);
+  newComment.appendChild(a);
   videoComments.prepend(newComment);
 };
 
@@ -35,6 +39,17 @@ const handleSubmit = async (event) => {
   }
 };
 
+const handleRemoveComment = (event) => {
+  console.log("Let's remove comment");
+  const some = event.target.parentElement;
+  const comment_id = some.getAttribute(`data-id`);
+  console.log(some);
+  console.log(comment_id);
+  videoComments.removeChild(some);
+};
+
 if (form) {
   form.addEventListener("submit", handleSubmit);
 }
+
+removeComment.addEventListener("click", handleRemoveComment);
