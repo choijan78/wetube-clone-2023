@@ -36,11 +36,15 @@ export const postEdit = async (req, res) => {
   } = req.session;
   const { id } = req.params;
   const { title, description, hashtags } = req.body;
-  const video = await Video.exists({ _id: id });
+  const video = await Video.findById(id);
+  console.log(Video);
+  console.log(video);
+  console.log(video.owner);
+  console.log(_id);
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
-  if (Sting(video.owner) !== String(_id)) {
+  if (String(video.owner) !== String(_id)) {
     req.flash("error", "You are not the owner of the video");
     return res.status(403).redirect("/");
   }

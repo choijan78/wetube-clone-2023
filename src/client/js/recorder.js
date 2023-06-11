@@ -1,6 +1,40 @@
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 const actionBtn = document.getElementById("actionBtn");
+const videoDiv = document.getElementById("videoDiv");
 const video = document.getElementById("preview");
+const recorderBtn = document.getElementById("recorderBtn");
+
+const init = async () => {
+  stream = await navigator.mediaDevices.getUserMedia({
+    audio: false,
+    video: {
+      width: 1024,
+      height: 576,
+    },
+  });
+  video.srcObject = stream;
+  video.play();
+};
+
+const handleCloser = () => {
+  recorderBtn.removeEventListener("click", handleCloser);
+  recorderBtn.addEventListener("click", handleRecorder);
+  recorderBtn.innerText = "Record";
+  videoDiv.classList.add("HIDDEN");
+  const tracks = stream.getTracks();
+  tracks.forEach((track) => {
+    track.stop();
+  });
+  stream = null;
+};
+
+const handleRecorder = () => {
+  recorderBtn.removeEventListener("click", handleRecorder);
+  recorderBtn.addEventListener("click", handleCloser);
+  recorderBtn.innerText = "Close";
+  videoDiv.classList.remove("HIDDEN");
+  init();
+};
 
 let stream;
 let recorder;
@@ -91,18 +125,5 @@ const handleStart = () => {
   }, 5000);
 };
 
-const init = async () => {
-  stream = await navigator.mediaDevices.getUserMedia({
-    audio: false,
-    video: {
-      width: 1024,
-      height: 576,
-    },
-  });
-  video.srcObject = stream;
-  video.play();
-};
-
-init();
-
+recorderBtn.addEventListener("click", handleRecorder);
 actionBtn.addEventListener("click", handleStart);

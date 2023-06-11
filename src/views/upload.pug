@@ -1,9 +1,11 @@
 extends base.pug
 
 block content
-    div
-        video#preview
-        button#actionBtn Start Recording
+    div#recorderDiv
+        button#recorderBtn Record
+        div#videoDiv.HIDDEN
+            video#preview
+            button#actionBtn Start Recording
 
     if errorMessage
         span=errorMessage

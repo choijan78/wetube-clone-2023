@@ -1,13 +1,39 @@
-.upload__container {
-  width: 100%;
-  .upload__video {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    video {
-      max-width: 100%;
-      margin-bottom: 10px;
-    }
+#recorderDiv {
+  text-align: center;
+  margin-bottom: 20px;
+  .HIDDEN {
+    display: none;
+  }
+}
+
+#recorderBtn {
+  text-align: center;
+  margin: auto;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  background-color: $red;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#videoDiv {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  video {
+    width: auto;
+    height: 500px;
+  }
+  #actionBtn {
+    width: 600px;
+    height: 60px;
+    margin: auto;
+    border-radius: 20px;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 600;
   }
 }

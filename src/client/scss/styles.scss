@@ -21,6 +21,13 @@
 @import "./screens/watch.scss";
 
 // Defaults
+html {
+  width: 100vw;
+  min-height: 100vh;
+  height: max-content;
+  background: linear-gradient(#ccabd8, #8474a1);
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -29,8 +36,8 @@ a {
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background-color: $bg;
-  color: white;
+  // background-color: $bg;
+  color: #055b5c;
 }
 
 main {
