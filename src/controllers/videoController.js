@@ -67,7 +67,8 @@ export const postUpload = async (req, res) => {
   } = req.session;
   const { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
-  const deployed = process.env.NODE_ENV === "production";
+  // const deployed = proccess.env.NODE_ENV === "production";
+  const deployed = false;
   console.log(_id);
   console.log(video, thumb);
   console.log(deployed);
