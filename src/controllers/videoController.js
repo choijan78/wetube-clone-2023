@@ -162,6 +162,8 @@ export const createComment = async (req, res) => {
 export const deleteComment = (req, res) => {
   const { id } = req.params;
   console.log(id);
+  const { comment_id } = req.body;
+  console.log(comment_id);
 
   return res.redirect("/");
 };

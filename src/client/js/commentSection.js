@@ -46,6 +46,12 @@ const handleRemoveComment = (event) => {
   console.log(some);
   console.log(comment_id);
   videoComments.removeChild(some);
+  fetch(`/api/videos/${comment_id}/comment`, {
+    method: "POST",
+    body: {
+      comment_id: "comment_id",
+    },
+  });
 };
 
 if (form) {
