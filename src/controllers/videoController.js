@@ -68,6 +68,10 @@ export const postUpload = async (req, res) => {
   const { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
   const deployed = process.env.NODE_ENV === "production";
+  console.log(_id);
+  console.log(video, thumb);
+  console.log(deployed);
+
   try {
     const newVideo = await Video.create({
       title,
